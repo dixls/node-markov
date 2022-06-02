@@ -17,13 +17,13 @@ class MarkovMachine {
    *  {"the": ["cat", "hat"], "cat": ["in"], "in": ["the"], "hat": [null]} */
 
   makeChains() {
-    let uniqueWords = [...new Set(this.words)];
+    this.uniqueWords = [...new Set(this.words)];
     this.chains = {};
-    console.log(uniqueWords)
-    for (let uniqueWord of uniqueWords) {
-      for (let word of this.words) {
+    // console.log(this.uniqueWords)
+    for (let uniqueWord of this.uniqueWords) {
+      for (let i = 0; i < this.words.length; i++) {
+        let word = this.words[i]
         if (word == uniqueWord) {
-          let i = this.words.indexOf(word);
           let nextWord = this.words[i + 1];
           if (this.chains[word]) {
             this.chains[word].push(nextWord);
@@ -39,7 +39,24 @@ class MarkovMachine {
   /** return random text from chains */
 
   makeText(numWords = 100) {
-    // TODO
+    let numUniqueWords = this.uniqueWords.length;
+    let randomWord = () => this.uniqueWords[Math.floor(Math.random() * numUniqueWords)]
+    let newChain = [randomWord()]
+    for (let i = 0; i < numWords; i++) {
+      let currentWord = newChain[i];
+      // console.log(currentWord);
+      let possibleNext = this.chains[currentWord];
+      // console.log(possibleNext)
+      if (possibleNext == undefined) {
+        let nextWord = randomWord()
+        newChain.push(nextWord)
+      }
+      else {
+        let nextWord = possibleNext[Math.floor(Math.random() * possibleNext.length)]
+        newChain.push(nextWord)
+      }
+    }
+    return newChain.join(' ');
   }
 }
 
