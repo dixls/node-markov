@@ -27,11 +27,9 @@ class MarkovMachine {
           let nextWord = this.words[i + 1];
           if (this.chains[word]) {
             this.chains[word].push(nextWord);
-            console.log("True")
           }
           else {
             this.chains[word] = [nextWord];
-            console.log("False")
           }
         }
       }
