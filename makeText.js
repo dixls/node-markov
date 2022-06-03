@@ -26,19 +26,24 @@ async function fromUrl(path) {
         })
 }
 
-
-if (args == "file") {
-    fromFile(argv[3])
-} else if (args == "url") {
-    fromUrl(argv[3])
-} else {
-    try{
-        let mm = new MarkovMachine(args);
-        let generatedText = mm.makeText(argv[3]);
-        console.log(generatedText);
-    }
-    catch(err){
-        console.log(err);
-        process.exit(1)
+function checkArgs(args) {
+    if (args == "file") {
+        fromFile(argv[3])
+    } else if (args == "url") {
+        fromUrl(argv[3])
+    } else {
+        try {
+            let mm = new MarkovMachine(args);
+            let generatedText = mm.makeText(argv[3]);
+            console.log(generatedText);
+        }
+        catch (err) {
+            console.log(err);
+            process.exit(1)
+        }
     }
 }
+
+checkArgs(args);
+
+module.exports = { checkArgs }

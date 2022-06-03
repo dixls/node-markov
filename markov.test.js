@@ -3,7 +3,7 @@ const { MarkovMachine } = require("./markov")
 describe("markov class tests", function () {
     let testMm;
     let catChains;
-    beforeAll(function () {
+    beforeEach(function () {
         testMm = new MarkovMachine("the cat in the hat")
         catChains = {
             the: ['cat', 'hat'],
